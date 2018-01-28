@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
+use AppBundle\Form\CommentType;
 use AppBundle\Form\SearchGithubUser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,11 +47,58 @@ class DefaultController extends Controller
     /**
      * @Route("/{username}/comment", name="comment")
      *
-     * @param Request $request
      */
     public function commentAction(Request $request, $username)
     {
+        $em = $this->getDoctrine()->getManager();
 
-        die($username);
+        $comment = new Comment();
+        $comment
+            ->setGithubUsername(strtolower($username))
+            ->setUser($this->getUser())
+        ;
+
+        $commentForm = $this->createForm(CommentType::class, $comment);
+
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+
+            $githubService = $this->get('app.github.api');
+
+            $comment = $commentForm->getData();
+
+            $repoName = $comment->getRepository();
+
+            $repo = $githubService->searchRepository($repoName, $username);
+
+            if (!empty($repo) && strtolower($repo[0]['name']) === strtolower($repoName)) {
+
+                $em->persist($comment);
+                $em->flush();
+
+                $comment = new Comment();
+                $comment
+                    ->setGithubUsername(strtolower($username))
+                    ->setUser($this->getUser())
+                ;
+
+                $commentForm = $this->createForm(CommentType::class, $comment);
+
+            } else {
+
+                $commentForm->get('repository')->addError(new FormError("Le dépot GitHub $repoName n'existe pas ou n'appartient pas à $username"));
+
+            }
+        }
+
+        $actualsComments = $em->getRepository('AppBundle:Comment')->findBy(array('githubUsername' => strtolower($username)), array('updated' => 'DESC'));
+
+        return $this->render('@App/comment.html.twig', array(
+            'username' => $username,
+            'commentForm' => $commentForm->createView(),
+            'actualsComment' => $actualsComments
+        ));
+
     }
 }

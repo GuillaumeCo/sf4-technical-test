@@ -17,7 +17,7 @@ class GithubApi
     {
         try {
 
-            $results = $this->client->get("search/users?q=$username&in:login");
+            $results = $this->client->get("search/users?q=$username+in:login");
             $users = json_decode($results->getBody()->getContents(), true);
 
         } catch (\Exception $e) {
@@ -28,8 +28,22 @@ class GithubApi
 
         return $users['items'];
 
-
     }
 
+    public function searchRepository($repoName, $username)
+    {
+        try {
 
+            $results = $this->client->get("/search/repositories?q=$repoName+user:$username");
+            $repos = json_decode($results->getBody()->getContents(), true);
+
+        } catch (\Exception $e) {
+
+            return "L'API GitHub ne répond pas";
+
+        }
+
+        return $repos['items'];
+
+    }
 }

@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Commentaires {% endblock %}
+
+{% block body %}
+
+    <h2>Commentaires pour {{ username }}</h2>
+
+    {{ form(commentForm) }}
+
+    {% for comment in actualsComment %}
+
+        <hr>
+
+        Le {{ comment.updated|date }} par {{ comment.user.firstname }} {{ comment.user.lastname }} sur le repository {{ comment.repository }} : {{ comment.content }}
+
+    {% endfor %}
+
+{% endblock %}
