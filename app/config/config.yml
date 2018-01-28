@@ -85,3 +85,12 @@ stof_doctrine_extensions:
     orm:
         default:
             timestampable: true
+
+# CsaGuzzleBundle
+csa_guzzle:
+    clients:
+        github_api:
+            config:
+                base_uri: "%base_uri_github%"
+                headers:
+                    Accept: application/vnd.github.v3+json

@@ -33,3 +33,9 @@ services:
         class: AppBundle\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
+
+    app.github.api:
+        class: AppBundle\Service\GithubApi
+        public: true
+        arguments:
+            - "@csa_guzzle.client.github_api"

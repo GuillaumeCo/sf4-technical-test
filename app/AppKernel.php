@@ -19,6 +19,7 @@ class AppKernel extends Kernel
 
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Csa\Bundle\GuzzleBundle\CsaGuzzleBundle(),
 
             new AppBundle\AppBundle(),
         ];
