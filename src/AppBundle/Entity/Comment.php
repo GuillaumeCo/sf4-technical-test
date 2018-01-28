@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Comment
@@ -25,6 +27,14 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="github_username", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "GitHub username must be at least {{ limit }} characters long",
+     *      maxMessage = "GitHub username cannot be longer than {{ limit }} characters"
+     * )
      */
     protected $githubUsername;
 
@@ -32,6 +42,14 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="repository", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "The repository name must be at least {{ limit }} characters long",
+     *      maxMessage = "The repository name cannot be longer than {{ limit }} characters"
+     * )
      */
     protected $repository;
 
@@ -39,6 +57,14 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 4000,
+     *      minMessage = "Your comment must be at least {{ limit }} characters long",
+     *      maxMessage = "Your comment cannot be longer than {{ limit }} characters"
+     * )
      */
     protected $content;
 
@@ -47,6 +73,22 @@ class Comment
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    protected $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    protected $updated;
 
 
     /**
@@ -154,5 +196,44 @@ class Comment
     public function getUser()
     {
         return $this->user;
+    }
+
+
+    /**
+     * @param \DateTime $created
+     * @return Comment
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTime $updated
+     * @return Comment
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }
