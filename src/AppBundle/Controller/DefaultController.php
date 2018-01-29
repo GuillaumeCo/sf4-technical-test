@@ -51,6 +51,7 @@ class DefaultController extends Controller
     public function commentAction(Request $request, $username)
     {
         $em = $this->getDoctrine()->getManager();
+        $githubService = $this->get('app.github.api');
 
         $comment = new Comment();
         $comment
@@ -58,13 +59,11 @@ class DefaultController extends Controller
             ->setUser($this->getUser())
         ;
 
-        $commentForm = $this->createForm(CommentType::class, $comment);
+        $commentForm = $this->createForm(CommentType::class, $comment, array('repositories' => $githubService->getUserRepositories($username)));
 
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-
-            $githubService = $this->get('app.github.api');
 
             $comment = $commentForm->getData();
 
@@ -83,7 +82,7 @@ class DefaultController extends Controller
                     ->setUser($this->getUser())
                 ;
 
-                $commentForm = $this->createForm(CommentType::class, $comment);
+                $commentForm = $this->createForm(CommentType::class, $comment, array('repositories' => $githubService->getUserRepositories($username)));
 
             } else {
 

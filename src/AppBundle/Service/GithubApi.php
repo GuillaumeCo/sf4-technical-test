@@ -46,4 +46,26 @@ class GithubApi
         return $repos['items'];
 
     }
+
+    public function getUserRepositories($username)
+    {
+        try {
+
+            $results = $this->client->get("/users/$username/repos");
+            $repos = json_decode($results->getBody()->getContents(), true);
+
+            $repositories = array();
+
+            foreach ($repos as $repo) {
+                $repositories[$repo['name']] = $repo['name'];
+            }
+
+        } catch (\Exception $e) {
+
+            return "L'API GitHub ne répond pas";
+
+        }
+
+        return $repositories;
+    }
 }
