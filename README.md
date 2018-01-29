@@ -7,8 +7,8 @@
 * Bonus (Docker) : 40min
 
 #### Points bloquants et difficultés:
-* Premier projet sur Symfony 3.4 et perte de temps sur la découverte de l'autowiring, des erreurs sur l'appel de mon service sans savoir vraiment pourquoi. Au final une premier erreur sur une mauvaise façon de l'appeler, et ensuite sur le fait que les services sont privés par défaut 
-* Les tests, première fois que j'essaye vraiment d'en faire. Mais blocage aussi au niveau du lancement des tests à cause, à priori, du composant yaml de Symfony
+* Premier projet sur Symfony 3.4 et perte de temps sur la découverte de l'autowiring : des erreurs sur l'appel de mon service sans savoir vraiment pourquoi. Au final une première erreur sur une mauvaise façon de l'appeler, et ensuite sur le fait que les services sont privés par défaut. 
+* Les tests, première fois que j'essaye vraiment d'en faire. Mais blocage aussi au niveau du lancement des tests à cause, à priori, du composant yaml de Symfony.
 
 Installation du projet avec Docker
 ----------------------------------
