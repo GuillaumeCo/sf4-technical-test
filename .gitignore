@@ -36,3 +36,8 @@
 /composer.phar
 
 /.web-server-pid
+
+# Docker
+.env
+docker/data
+docker/logs

@@ -1,0 +1,50 @@
+version: '2.1'
+
+services:
+  nginx-proxy:
+      restart: always
+      image: jwilder/nginx-proxy
+      container_name: nginx-proxy
+      ports:
+        - "4200:80"
+      volumes:
+        - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  mysql-server:
+      restart: always
+      image: mysql/mysql-server:5.7
+      container_name: mysql-server
+      environment:
+         MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+         MYSQL_DATABASE: sf4-technical-test
+         MYSQL_USER: ${DATABASE_USER}
+         MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      volumes:
+       - $PWD/docker/data:/var/lib/mysql
+
+  phpmyadmin:
+      restart: always
+      image: phpmyadmin/phpmyadmin:4.6.0-1
+      container_name: phpmyadmin
+      depends_on:
+        mysql-server:
+          condition: service_healthy
+      external_links:
+        - mysql-server:db
+      environment:
+        - VIRTUAL_HOST=phpmyadmin.localhost
+
+  sf4-technical-test:
+      restart: always
+      image: sf4-technical-test:1
+      container_name: sf4-technical-test
+      depends_on:
+        mysql-server:
+          condition: service_healthy
+      external_links:
+       - mysql-server:db
+      environment:
+       - VIRTUAL_HOST=sf4-technical-test.localhost
+      volumes:
+       - $PWD:/var/www/symfony
+       - $PWD/docker/logs:/var/log/apache2/

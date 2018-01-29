@@ -1,3 +1,72 @@
+# Compte rendu
+
+#### Temps passé : 5h30
+* Partie Backend (installation et applicatif) : 3h30
+* Partie HTML/CSS : 40min
+* Essai sur les tests : 40min
+* Bonus (Docker) : 40min
+
+#### Points bloquants et difficultés:
+* Premier projet sur Symfony 3.4 et perte de temps sur la découverte de l'autowiring, des erreurs sur l'appel de mon service sans savoir vraiment pourquoi. Au final une premier erreur sur une mauvaise façon de l'appeler, et ensuite sur le fait que les services sont privés par défaut 
+* Les tests, première fois que j'essaye vraiment d'en faire. Mais blocage aussi au niveau du lancement des tests à cause, à priori, du composant yaml de Symfony
+
+Installation du projet avec Docker
+----------------------------------
+
+#### Prérequis
+
+Docker et Docker Compose doivent être installés.
+
+>Installation de Docker : https://docs.docker.com/engine/installation/
+
+>Installation de Docker Compose : https://docs.docker.com/compose/install/
+
+
+#### Clone du projet depuis Git :
+```
+$ git clone https://github.com/GuillaumeCo/sf4-technical-test.git sf4-technical-test
+```
+
+
+#### Installation et lancement des containers Docker :
+
+Se rendre dans le dossier du projet et lancer la commande d'initialisation :
+```bash
+$ cd sf4-technical-test ; make install
+```
+
+La commande va demander des informations pour configurer la base de données ainsi que les fichiers 'parameters.yml' et '.env'.
+
+```bash
+DB_USERNAME : root
+DB_PASSWORD : root
+```
+> **Note :**
+> Le username et le password sont des exemples, il est possible d'en mettre d'autres. La base MySQL sera configurée avec ces identifiants.
+
+
+#### Accès au site et à phpMyAdmin :
+
+Site : http://sf4-technical-test.localhost:4200
+
+phpMyAdmin : http://phpmyadmin.localhost:4200
+
+
+#### Commandes disponibles :
+
+- Stopper les containers : `$ make stop`
+
+- Démarrer les containers : `$ make start`
+
+- Nettoyer le cache de Symfony : `$ make clear`
+
+- Se connecter en root au container : `$ make bash-root`
+
+- Se connecter avec l'utilisateur www-data au container : `$ make bash`
+
+
+
+
 # StadLine Technical Test
 
 ### Tache
