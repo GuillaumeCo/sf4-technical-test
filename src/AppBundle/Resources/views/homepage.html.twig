@@ -4,6 +4,39 @@
 
 {% block body %}
 
-    {{ form(searchForm) }}
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">Rechercher un utilisateur GitHub</div>
+            <div class="panel-body">
+
+                {{ form_start(searchForm) }}
+
+                {{ form_errors(searchForm) }}
+
+                <div class="form-group">
+                    <label for="search_github_user_username" class="col-md-4 control-label">Username</label>
+
+                    <div class="col-md-6">
+                        {{ form_widget(searchForm.username) }}
+                    </div>
+
+                    <div class="col-md-12">{{ form_errors(searchForm.username) }}</div>
+                </div>
+
+                <br><br>
+
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary">
+                            Rechercher
+                        </button>
+                    </div>
+                </div>
+
+                {{ form_end(searchForm) }}
+
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

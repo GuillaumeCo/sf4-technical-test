@@ -4,16 +4,93 @@
 
 {% block body %}
 
-    <h2>Commentaires pour {{ username }}</h2>
+    <div class="row">
+        <h2>Commentaires pour les dépots de {{ username }}</h2>
+    </div>
 
-    {{ form(commentForm) }}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Ajouter un commentaire sur un dépot de {{ username }}</div>
+                <div class="panel-body">
 
-    {% for comment in actualsComment %}
+                    {{ form_start(commentForm) }}
 
-        <hr>
+                    {{ form_errors(commentForm) }}
 
-        Le {{ comment.updated|date }} par {{ comment.user.firstname }} {{ comment.user.lastname }} sur le repository {{ comment.repository }} : {{ comment.content }}
+                    <div class="form-group">
+                        <label for="email" class="col-md-4 control-label">Dépot</label>
 
-    {% endfor %}
+                        <div class="col-md-6">
+                            {{ form_widget(commentForm.repository) }}
+                        </div>
+
+                        <div class="col-md-12">{{ form_errors(commentForm.repository) }}</div>
+                    </div>
+
+                    <br><br>
+
+                    <div class="form-group">
+                        <label for="email" class="col-md-4 control-label">Commentaire</label>
+
+                        <div class="col-md-6">
+                            {{ form_widget(commentForm.content) }}
+                        </div>
+
+                        <div class="col-md-12">{{ form_errors(commentForm.content) }}</div>
+                    </div>
+
+                    <br><br>
+
+                    <div class="form-group">
+                        <div class="col-md-8 col-md-offset-4">
+                            <button type="submit" class="btn btn-primary">
+                                Poster un commentaire
+                            </button>
+                        </div>
+                    </div>
+
+                    {{ form_end(commentForm) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <h2>Les commentaires sur les dépots de {{ username }} : </h2>
+
+        <br><br>
+
+        <div class="col-md-9 col-md-offset-1">
+            {% for comment in actualsComment %}
+
+                <div class="media">
+                    <div class="media-body">
+                        <h4 class="media-heading">
+
+                            {{ comment.user.firstname }} {{ comment.user.lastname }}
+
+                            <small>sur le dépot {{ comment.repository }}, le {{ comment.updated|date('d/m/Y') }} {{ comment.updated|date('H:i:s') }}</small>
+
+                        </h4>
+
+                        <div class="clearfix"></div>
+
+                        <div class="comment-content">
+                            {{ comment.content }}
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
 
 {% endblock %}

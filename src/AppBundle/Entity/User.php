@@ -29,8 +29,8 @@ class User extends BaseUser
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
-     *      minMessage = "Your firstname must be at least {{ limit }} characters long",
-     *      maxMessage = "Your firstname cannot be longer than {{ limit }} characters"
+     *      minMessage = "Votre prénom doit posséder au minimum {{ limit }} caractères",
+     *      maxMessage = "Votre prénom doit posséder au maximum {{ limit }} caractères"
      * )
      */
     protected $firstname;
@@ -44,8 +44,8 @@ class User extends BaseUser
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
-     *      minMessage = "Your lastname must be at least {{ limit }} characters long",
-     *      maxMessage = "Your lastname cannot be longer than {{ limit }} characters"
+     *      minMessage = "Votre nom doit posséder au minimum {{ limit }} caractères",
+     *      maxMessage = "Votre nom doit posséder au maximum {{ limit }} caractères"
      * )
      */
     protected $lastname;
@@ -79,6 +79,14 @@ class User extends BaseUser
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    public function setEmail($email)
+    {
+        parent::setEmail($email);
+        $this->setUsername($email);
+
+        return $this;
+    }
 
     /**
      * Set firstname

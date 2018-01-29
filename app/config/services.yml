@@ -34,6 +34,13 @@ services:
         tags:
             - { name: form.type, alias: app_user_registration }
 
+    app.registration_success:
+        class: AppBundle\EventListener\RegistrationSuccessListener
+        arguments:
+            - "@router"
+        tags:
+            - { name: kernel.event_subscriber }
+
     app.github.api:
         class: AppBundle\Service\GithubApi
         public: true

@@ -12,8 +12,7 @@ class SearchGithubUser extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array('label' => 'Username'))
-            ->add('search', SubmitType::class)
+            ->add('username', TextType::class)
         ;
     }
 }

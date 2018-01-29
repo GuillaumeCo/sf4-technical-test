@@ -32,8 +32,8 @@ class Comment
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
-     *      minMessage = "GitHub username must be at least {{ limit }} characters long",
-     *      maxMessage = "GitHub username cannot be longer than {{ limit }} characters"
+     *      minMessage = "Le Username GitHub doit posséder au minimum {{ limit }} caractères",
+     *      maxMessage = "Le Username GitHub doit posséder au maximum {{ limit }} caractères"
      * )
      */
     protected $githubUsername;
@@ -47,8 +47,8 @@ class Comment
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
-     *      minMessage = "The repository name must be at least {{ limit }} characters long",
-     *      maxMessage = "The repository name cannot be longer than {{ limit }} characters"
+     *      minMessage = "Le nom du dépot doit posséder au minimum {{ limit }} caractères",
+     *      maxMessage = "Le nom du dépot doit posséder au maximum {{ limit }} caractères"
      * )
      */
     protected $repository;
@@ -62,8 +62,8 @@ class Comment
      * @Assert\Length(
      *      min = 2,
      *      max = 4000,
-     *      minMessage = "Your comment must be at least {{ limit }} characters long",
-     *      maxMessage = "Your comment cannot be longer than {{ limit }} characters"
+     *      minMessage = "Votre commetnaire doit posséder au minimum {{ limit }} caractères",
+     *      maxMessage = "Votre commetnaire doit posséder au maximum {{ limit }} caractères"
      * )
      */
     protected $content;
